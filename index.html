@@ -9,17 +9,37 @@
     <body>
         <div class="container">
             <form class="w-50 mt-5 offset-3">
-            <input type="text" class="form-control p_name"/>
+            <input type="text" class="form-control p_name" placeholder="Enter Your Teacher's Name"/>
             <input type="button" value="save" class="btn btn-primary lg form-control mt-5 " onclick="saveTeacherName(this)"/>
             </form>
         </div>
         
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
         <script>
+            
+             //API call
+             //let ceo1= new ClassName();
+             let xhr = new XMLHttpRequest();
+             // when a variable define outside the function it is called global variable;
              function saveTeacherName(e){ // e formal argument
                 console.log(e)
                 console.log(document.querySelector('.p_name').value);
+                let tn = document.querySelector('.p_name').value;
+                xhr.open('POST','http://localhost:1337/api/teachers');
+                xhr.setRequestHeader('Content-Type','application/json');
+                xhr.setRequestHeader('Accept','application/json');
+                xhr.setRequestHeader('Authorization','Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNzUwMjY2NDUyLCJleHAiOjE3NTI4NTg0NTJ9.EvjBiP82Gc3MLorzD8gS_vwIx7D2pJ31CxHrDJqmv5k');
+                let payload = {
+                                "data": {
+                                    "fname": tn
+                                }
+                                };
+                payload = JSON.stringify(payload);
+
+                 
+                xhr.send(payload);
              }
+
         </script>
     </body>
 </html>
